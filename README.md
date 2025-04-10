@@ -14,7 +14,7 @@ The idea is if one has a residual image and want to extract low level RFI
 It wil use you environment name e.g. here it is called grg:
 CONDA_ENV_NAME = "grg"  # Replace with your Conda environment name
   
-**fft_image_and_produce_outliers_dask.py
+**fft_image_and_produce_outliers_dask.py**
 
 This code will automatically run from anywhere, use the conda environment specified and will take a fits images (residual) and do a FFT.
 The FFT image is then saved as well as it will write out a csv file that contains the U,v where there are potential outliers.
