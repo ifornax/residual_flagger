@@ -8,6 +8,7 @@ The idea is if one has a residual image and want to extract low level RFI
 - astropy
 - dask
 - numpy
+- pandas
 - parse
 
 It wil use you environment name e.g. here it is called grg:
