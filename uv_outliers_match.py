@@ -1,29 +1,5 @@
 #!/usr/bin/env python3
 
-import os
-import sys
-import subprocess
-
-# Configuration
-CONDA_ENV_NAME = "grg"  # Replace with your Conda environment name
-SCRIPT_NAME = os.path.abspath(__file__)  # Full path to this script
-
-def is_conda_env_active(env_name):
-    """Check if the specified Conda environment is active."""
-    current_env = os.environ.get("CONDA_DEFAULT_ENV")
-    return current_env == env_name
-
-def activate_and_run():
-    """Activate the Conda environment and re-run the script with original arguments."""
-    # Preserve the original command-line arguments
-    args = " ".join(sys.argv[1:])  # Exclude sys.argv[0] (script name)
-    cmd = f"conda run -n {CONDA_ENV_NAME} python {SCRIPT_NAME} {args}"
-    
-    print(f"Running command: {cmd}")
-    process = subprocess.Popen(cmd, shell=True, executable="/bin/bash")
-    process.wait()
-    sys.exit(process.returncode)
-
 def main():
     import argparse
     import pandas as pd
@@ -92,10 +68,4 @@ def main():
     print(f"Common antennas: {common_ant}")
 
 if __name__ == "__main__":
-    # Check if we're already in the target Conda environment
-    if not is_conda_env_active(CONDA_ENV_NAME):
-        print(f"Activating Conda environment '{CONDA_ENV_NAME}' and re-running script...")
-        activate_and_run()
-    else:
-        print(f"Already in Conda environment: {CONDA_ENV_NAME}")
-        main()
+    main()

@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "residual-flagger"
+version = "0.1.0"
+description = "RFI flagging from radio interferometry residual images via FFT"
+requires-python = ">=3.10"
+dependencies = [
+    "astropy",
+    "dask",
+    "numpy",
+    "pandas",
+    "scipy",
+    "matplotlib",
+]
+
+[project.scripts]
+fft-outliers = "fft_image_and_produce_outliers_dask:main"
+uv-outliers-match = "uv_outliers_match:main"
+generate-baselines = "generate_baseline_for_obs:main"
+
+[tool.setuptools]
+py-modules = [
+    "fft_image_and_produce_outliers_dask",
+    "uv_outliers_match",
+    "generate_baseline_for_obs",
+    "generate_baselines",
+    "uv_match",
+]

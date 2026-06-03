@@ -3,27 +3,44 @@ An implementation of Keegan's and Tim's ideas.
 
 The idea is if one has a residual image and want to extract low level RFI
 
-## You will need a Python 3.10.0 environment and install the following packages:
-- subprocess
+## Installation
+
+Requires Python 3.10+. Install with pip (preferably inside a virtual environment):
+
+```bash
+pip install .
+```
+
+This installs all required dependencies:
 - astropy
 - dask
 - numpy
 - pandas
-- parse
+- scipy
+- matplotlib
 
-It wil use you environment name e.g. here it is called grg:
-CONDA_ENV_NAME = "grg"  # Replace with your Conda environment name
-  
-**fft_image_and_produce_outliers_dask.py**
+## Usage
 
-This code will automatically run from anywhere, use the conda environment specified and will take a fits images (residual) and do a FFT.
-The FFT image is then saved as well as it will write out a csv file that contains the U,v where there are potential outliers.
+**fft-outliers**
 
-This file will be used with the uv_outliers_match.py to give the antennas with most outliers.
+Takes a FITS residual image, performs a 2D FFT, saves the UV-domain FITS image, and writes a CSV of potential outlier (u,v) coordinates.
 
-**generate_baseline_for_obs.py**
+```bash
+fft-outliers <input_image.fits> <fft_output.fits> <outliers.csv> [--nsigma 5.0] [--outlier-fits <marked.fits>]
+```
 
-This code will take a fits file and generate the expected baseline using information from the header.
-The output of this file can then be used as input to uv_outliers_match.py
+**generate-baselines**
 
+Takes a FITS file and generates the expected baselines from the header. The output CSV is used as input to `uv-outliers-match`.
 
+```bash
+generate-baselines <input_image.fits> <baselines.csv>
+```
+
+**uv-outliers-match**
+
+Takes the FFT outlier CSV and the baseline CSV, matches each outlier to the nearest baseline, and reports which antennas are most likely responsible.
+
+```bash
+uv-outliers-match <outliers.csv> <baselines.csv> <matched_output.csv>
+```
